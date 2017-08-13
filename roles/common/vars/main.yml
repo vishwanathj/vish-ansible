@@ -1,0 +1,8 @@
+---
+
+# user to manage
+user: vyatta
+
+vnc_geometry: 1900x1024
+# vnc_geometry: 1280x1024
+

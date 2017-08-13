@@ -1,0 +1,53 @@
+---
+
+- name: ensure user exists
+  user: name={{ user }}
+
+- name: start libvirtd
+  service: name=libvirtd state=started enabled=yes
+  register: libvirtd
+
+- name: wait for libvirtd to get up
+  pause: seconds=30
+  when: libvirtd.changed
+
+- get_url: 
+    url="http://releases.ubuntu.com/xenial/ubuntu-16.04.3-server-amd64.iso"
+    dest="~/ubuntu-16.04.3-server-amd64.iso"
+    mode=777
+  when: "'ubuntu16' in vmtemplate"
+
+- get_url:
+    url="http://releases.ubuntu.com/trusty/ubuntu-14.04.5-server-amd64.iso"
+    dest="~/ubuntu-14.04.5-server-amd64.iso"
+  when: "'ubuntu14' in vmtemplate"
+
+- name: create vm
+  command: sudo virt-install -n {{vmname}}
+           --ram 2048
+           --vcpus 2
+           --location /root/ubuntu-16.04.3-server-amd64.iso
+           --os-type linux
+           --os-variant ubuntu16.04
+           --network network=default
+           --graphics vnc
+           --hvm
+           --virt-type kvm
+           --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
+           --noautoconsole
+  when: "'ubuntu16' in vmtemplate"
+
+- name: create vm
+  command: virt-install -n {{vmname}}
+           --ram 2048
+           --vcpus 2
+           --location /root/ubuntu-14.04.5-server-amd64.iso
+           --os-type linux
+           --os-variant ubuntu14.04
+           --network network=default
+           --graphics vnc
+           --hvm
+           --virt-type kvm
+           --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
+           --noautoconsole
+  when: "'ubuntu14' in vmtemplate"

@@ -1,0 +1,28 @@
+---
+
+- name: ensure user exists
+  user: name={{ user }}
+
+- name: start libvirtd
+  service: name=libvirtd state=started enabled=yes
+  register: libvirtd
+
+- name: wait for libvirtd to get up
+  pause: seconds=30
+  when: libvirtd.changed
+
+- name: create vm
+  command: virt-install -n {{vmname}}
+           --ram 2048
+           --vcpus 2
+           --location http://us.archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/
+           --os-type linux
+           --os-variant ubuntu16.04
+           --network network=default
+           --graphics vnc
+           --hvm
+           --virt-type kvm
+           --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
+           --noautoconsole
+  when: "'ubuntu16' in vmtemplate"
+

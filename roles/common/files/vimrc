@@ -1,0 +1,20 @@
+set bg=dark
+set number
+
+set cursorline          " highlight current line
+set showmatch           " highlight matching [{()}]
+
+set incsearch           " highlight search as you type
+set ignorecase          " obvious
+set smartcase           " case sensitive if uppercase
+set hlsearch            " highlight searches
+set wildmenu            " visual autocomplete for command menu
+
+set tabstop=4           " number of spaces a tab counts for when opening
+set softtabstop=4       " number of spaces a tab counts for when editing
+set expandtab
+
+nmap <leader>q :nohlsearch<CR>
+nmap <leader>l :setlocal number!<CR>
+nmap <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+nmap <leader>s :set spell!<CR>

@@ -1,0 +1,29 @@
+---
+- hosts: all
+  sudo: yes
+  gather_facts: False
+  pre_tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      register: output
+      changed_when: output.stdout != ""
+    - name: replace #user = "root" in qemu.conf file with user = "root"
+      lineinfile:
+        dest: /etc/libvirt/qemu.conf
+        regexp: '#user = "root"'
+        line: 'user = "root"'
+        state: present
+      register: userchange
+    - setup: # aka gather_facts
+    - name: replace #group = "root" in qemu.conf file group = "root"
+      lineinfile:
+        dest: /etc/libvirt/qemu.conf
+        regexp: '#group = "root"'
+        line: 'group = "root"'
+        state: present
+      register: groupchange
+    - name: restart libvirtd service
+      service: name=libvirtd state=restarted
+      when: userchange.changed or groupchange.changed
+  roles:
+    - { role: common, tags: "common" }

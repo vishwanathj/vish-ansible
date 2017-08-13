@@ -1,0 +1,17 @@
+---
+- hosts: all
+  sudo: yes
+  gather_facts: False
+  pre_tasks:
+    - name: Install virtinst
+      raw: test -e /usr/bin/virt-inst || (apt -y update && apt install -y virtinst)
+      register: output
+      changed_when: output.stdout != ""
+    - name: Install virt-manager
+      raw: test -e /usr/bin/virt-manager || (apt -y update && apt install -y virt-manager)
+      register: output
+      changed_when: output.stdout != ""
+    - setup: # aka gather_facts
+  roles:
+    - { role: createvm, tags: "createvm" }
+

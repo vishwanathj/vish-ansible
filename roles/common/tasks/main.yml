@@ -1,0 +1,105 @@
+---
+
+- name: Update apt sources      
+  apt:                          
+    update_cache: yes           
+    cache_valid_time: 600       
+  register: apt_update          
+  until: apt_update|success     
+  retries: 5                    
+  delay: 2                      
+
+- name: install common packages
+  apt: name={{ item }}
+  with_items:
+    - xorg
+    - lxde
+    - tightvncserver
+    - vim
+    - git
+    - autocutsel
+    - htop
+    - numactl
+
+- name: ensure user exists
+  user: name={{ user }}
+
+- name: copy and install pycharm5 to user home
+  unarchive:
+    src=pycharm-professional-5.0.3.tar.gz
+    dest=/home/{{ user }}
+    # creates=/home/{{ user }}/pycharm-5.0.3
+  when: "{{ pycharm_ver }} == 5"
+  tags: pycharm5
+
+- name: copy and install pycharm4 to user home
+  unarchive:
+    src=pycharm-professional-4.5.3.tar.gz
+    dest=/home/{{ user }}
+    # creates=/home/{{ user }}/pycharm-4.5.3
+  when: "{{ pycharm_ver }} == 4"
+  tags: pycharm4
+
+- name: create vnc service startup script
+  template:
+    src=vncserver
+    dest=/etc/init.d/vncserver
+    mode=0755
+
+- name: create vnc user directory and password file
+  copy:
+    src=.vnc
+    dest=/home/{{ user }}
+    directory_mode=0700
+    mode=0700
+    owner={{ user }}
+    group={{ user }}
+    backup=yes
+
+- name: manage lxde configuration environment
+  file:
+    path=/home/{{ user }}/.config/pcmanfm/LXDE
+    state=directory
+    owner={{ user }}
+    group={{ user }}
+
+- name: configure a nice background for lxde
+  copy:
+    src=lxde/openstackwallpaper1.png
+    dest=/usr/share/lxde/wallpapers/openstackwallpaper1.png
+
+- name: configure pcmanfm
+  template:
+    src=desktop-items-0.conf
+    dest=/home/{{ user }}/.config/pcmanfm/LXDE/desktop-items-0.conf
+
+- name: manage common desktop icons
+  copy:
+    src=lxde/Desktop
+    dest=/home/{{ user }}
+    owner={{ user }}
+    group={{ user }}
+
+- name: create pycharm icon on desktop
+  copy:
+    src=lxde/pycharm{{ pycharm_ver }}.desktop
+    dest=/home/{{ user }}/Desktop
+    owner={{ user }}
+    group={{ user }}
+
+- name: create an acceptable vimrc in users home
+  copy:
+    src=vimrc
+    dest=/home/{{ user }}/.vimrc
+    mode=0660
+    owner={{ user }}
+    group={{ user }}
+    backup=yes
+
+- name: start vnc service
+  service:
+    name=vncserver
+    state=restarted
+    enabled=true
+  #tags: foo
+

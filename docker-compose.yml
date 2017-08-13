@@ -1,0 +1,10 @@
+version: "3"
+services:
+  ansible:
+    image: ansible:16.04
+    hostname: vishansible
+    stdin_open: true
+#  docansible:
+#    image: williamyeh/ansible:ubuntu16.04
+#    hostname: docansible
+#    stdin_open: true

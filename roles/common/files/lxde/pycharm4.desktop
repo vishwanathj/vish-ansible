@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=pycharm4
+Comment=pycharm4
+Exec=/home/vyatta/pycharm-4.5.3/bin/pycharm.sh %f
+Icon=/home/vyatta/pycharm-4.5.3/bin/pycharm.png
+Terminal=false
+Type=Application
+MimeType=text/plain
+Categories=GTK;Utility;TextEditor;
