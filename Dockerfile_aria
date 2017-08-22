@@ -6,14 +6,15 @@ RUN apt-get update && apt-get install -y \
     libffi-dev \
     libssl-dev \
     python-pip \
+    git \
     wget
 
 RUN pip install --upgrade pip setuptools
 
-#RUN pip install aria[ssh]
+RUN pip install apache-ariatosca[ssh]
 
 RUN pip install apache-ariatosca
 
 WORKDIR /tmp
 
-RUN wget https://github.com/apache/incubator-ariatosca/tree/master/examples/hello-world
+COPY helloworld.yaml .
