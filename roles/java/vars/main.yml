@@ -10,10 +10,10 @@ java_debian_openjdk_packages:
     - openjdk-6-jdk
     - ca-certificates
   7:
-    - openjdk-7-jdk
+    - openjdk-7-jre
     - ca-certificates
   8:
-    - openjdk-8-jdk
+    - openjdk-8-jre
     - ca-certificates
   9:
     - openjdk-9-jdk
