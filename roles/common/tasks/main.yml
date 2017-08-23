@@ -3,7 +3,7 @@
 - name: Update apt sources      
   apt:                          
     update_cache: yes           
-    cache_valid_time: 600       
+    cache_valid_time: 600
   register: apt_update          
   until: apt_update|success     
   retries: 5                    
