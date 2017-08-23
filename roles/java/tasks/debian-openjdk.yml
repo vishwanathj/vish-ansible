@@ -1,5 +1,9 @@
 ---
 
+- apt_repository:
+    repo: "{{ java_openjdk_repo }}"
+    state: present
+
 - name: Install OpenJDK Java
   apt:
     name: "{{ item }}"

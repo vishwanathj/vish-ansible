@@ -26,8 +26,10 @@
 
 - name: copy and install pycharm5 to user home
   unarchive:
-    src=pycharm-professional-5.0.3.tar.gz
+    #src=pycharm-professional-5.0.3.tar.gz
+    src=https://download.jetbrains.com/python/pycharm-professional-5.0.6.tar.gz
     dest=/home/{{ user }}
+    remote_src=True
     # creates=/home/{{ user }}/pycharm-5.0.3
   when: "{{ pycharm_ver }} == 5"
   tags: pycharm5
