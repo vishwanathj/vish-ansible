@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install --upgrade pip setuptools
 
-RUN pip install apache-ariatosca
+#RUN pip install apache-ariatosca
 
-RUN pip install apache-ariatosca[ssh]
+RUN pip install apache-ariatosca[ssh] --no-binary apache-ariatosca
 
 WORKDIR /tmp
 
