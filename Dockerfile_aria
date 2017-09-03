@@ -19,4 +19,6 @@ WORKDIR /tmp
 
 RUN git clone https://github.com/apache/incubator-ariatosca.git /tmp/incubator-ariatosca
 
-RUN sed -i "s/tosca:Root/tosca.nodes.Root/g" /tmp/incubator-ariatosca/examples/hello-world/helloworld.yaml
+WORKDIR /tmp/incubator-ariatosca
+
+RUN git checkout tags/0.1.1
