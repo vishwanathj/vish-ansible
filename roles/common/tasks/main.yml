@@ -20,6 +20,7 @@
     - autocutsel
     - htop
     - numactl
+    - virtualenv
 
 - name: ensure user exists
   user: name={{ user }}
