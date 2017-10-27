@@ -6,13 +6,6 @@ RUN yum install -y yum-plugin-ovl
 RUN yum install -y python-devel gcc libffi-devel openssl-devel epel-release curl git
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 RUN python get-pip.py
-#RUN yum install -y python-devel 
-#RUN yum install -y gcc
-#RUN yum install -y libffi-devel
-#RUN yum install -y openssl-devel
-#RUN yum install -y epel-release
-#RUN yum install -y python-pip
-#RUN yum install -y git 
 
 RUN pip install --upgrade pip setuptools
 
