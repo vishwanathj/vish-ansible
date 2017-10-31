@@ -13,7 +13,7 @@ RUN pip install --upgrade pip setuptools
 
 #RUN pip install apache-ariatosca
 
-RUN pip install apache-ariatosca[ssh] --no-binary apache-ariatosca
+RUN pip install apache-ariatosca[ssh]==0.1.1 --no-binary apache-ariatosca
 
 WORKDIR /tmp
 
