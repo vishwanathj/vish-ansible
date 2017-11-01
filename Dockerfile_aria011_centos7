@@ -4,6 +4,7 @@ RUN yum -y update; yum clean all
 
 RUN yum install -y yum-plugin-ovl 
 RUN yum install -y python-devel gcc libffi-devel openssl-devel epel-release curl git
+RUN yum install wget -y
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 RUN python get-pip.py
 
