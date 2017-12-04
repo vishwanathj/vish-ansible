@@ -28,6 +28,7 @@
            --vcpus 2
            --location /root/ubuntu-16.04.3-server-amd64.iso
            --os-type linux
+	   --os-variant ubuntu16.04
            --network network=default
            --graphics vnc
            --hvm
@@ -57,7 +58,7 @@
            --vcpus 2
            --location /root/CentOS-7-x86_64-Everything-1708.iso
            --os-type linux
-           --os-variant ubuntu14.04
+           --os-variant centos7
            --network network=default
            --graphics vnc
            --hvm
