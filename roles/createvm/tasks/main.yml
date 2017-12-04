@@ -58,7 +58,7 @@
            --vcpus 2
            --location http://mirror.i3d.net/pub/centos/7/os/x86_64/
            --os-type linux
-           --os-variant centos7
+           --os-variant rhel7
            --network network=default
            --graphics vnc
            --hvm
