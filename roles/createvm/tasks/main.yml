@@ -56,7 +56,7 @@
   command: virt-install -n {{vmname}}
            --ram 4096
            --vcpus 2
-           --location /root/CentOS-7-x86_64-Everything-1708.iso
+           --location http://mirror.i3d.net/pub/centos/7/os/x86_64/
            --os-type linux
            --os-variant centos7
            --network network=default
