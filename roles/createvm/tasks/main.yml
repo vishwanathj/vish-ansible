@@ -28,7 +28,6 @@
            --vcpus 2
            --location /root/ubuntu-16.04.3-server-amd64.iso
            --os-type linux
-           --os-variant ubuntu16.04
            --network network=default
            --graphics vnc
            --hvm
