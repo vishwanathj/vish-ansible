@@ -51,3 +51,18 @@
            --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
            --noautoconsole
   when: "'ubuntu14' in vmtemplate"
+
+- name: create vm
+  command: virt-install -n {{vmname}}
+           --ram 4096
+           --vcpus 2
+           --location /root/CentOS-7-x86_64-Everything-1708.iso
+           --os-type linux
+           --os-variant ubuntu14.04
+           --network network=default
+           --graphics vnc
+           --hvm
+           --virt-type kvm
+           --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
+           --noautoconsole
+  when: "'centos7' in vmtemplate"

@@ -26,3 +26,17 @@
            --noautoconsole
   when: "'ubuntu16' in vmtemplate"
 
+- name: create vm
+  command: virt-install -n {{vmname}}
+           --ram 4096
+           --vcpus 2
+           --location http://dallas.tx.mirror.xygenhosting.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Everything-1708.iso
+           --os-type linux
+           --network network=default
+           --graphics vnc
+           --hvm
+           --virt-type kvm
+           --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
+           --noautoconsole
+  when: "'centos7' in vmtemplate"
+
