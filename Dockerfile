@@ -12,9 +12,13 @@ RUN apt-get update \
     && apt-get install -y iputils-ping \
     && apt-get install -y git 
 
-COPY *.sh /tmp/
-COPY *.yaml /tmp/
-RUN mkdir /tmp/roles
-COPY roles/ /tmp/roles
+#COPY *.sh /tmp/
+#COPY *.yaml /tmp/
+#RUN mkdir /tmp/roles
+#COPY roles/ /tmp/roles
 RUN sed -i "s/#host_key_checking/host_key_checking/g" /etc/ansible/ansible.cfg
+
+WORKDIR /tmp
+
+RUN git clone https://github.com/vishwanathj/vish-ansible.git
 
