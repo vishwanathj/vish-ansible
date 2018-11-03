@@ -1,6 +1,7 @@
 ---
-- name: install Go with cross compilers via Homebrew
+- name: install Go with cross compilers via Homebrew on MAC
   homebrew:
     name: go
     state: latest
     install_options: with-cc-common
+  when: ansible_distribution == 'MacOSX'
