@@ -21,4 +21,5 @@ RUN sed -i "s/#host_key_checking/host_key_checking/g" /etc/ansible/ansible.cfg
 WORKDIR /tmp
 
 RUN git clone https://github.com/vishwanathj/vish-ansible.git
+#CMD ["git", "clone", "https://github.com/vishwanathj/vish-ansible.git"]
 
