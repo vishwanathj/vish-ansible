@@ -12,45 +12,67 @@
   when: libvirtd.changed
 
 - get_url: 
-    url="http://releases.ubuntu.com/xenial/ubuntu-16.04.3-server-amd64.iso"
-    dest="~/ubuntu-16.04.3-server-amd64.iso"
+    url="http://releases.ubuntu.com/bionic/ubuntu-18.04.5-live-server-amd64.iso"
+    dest="~/ubuntu-18.04.5-live-server-amd64.iso"
     mode=777
-  when: "'ubuntu16' in vmtemplate"
+  when: "'ubuntu18' in vmtemplate"
 
 - get_url:
-    url="http://releases.ubuntu.com/trusty/ubuntu-14.04.5-server-amd64.iso"
-    dest="~/ubuntu-14.04.5-server-amd64.iso"
-  when: "'ubuntu14' in vmtemplate"
+    url="http://releases.ubuntu.com/focal/ubuntu-20.04.1-live-server-amd64.iso"
+    dest="~/ubuntu-20.04.1-live-server-amd64.iso"
+    mode=777
+  when: "'ubuntu20' in vmtemplate"
+
+- get_url:
+    url="http://centos.mirror.lstn.net/8.2.2004/isos/x86_64/CentOS-8.2.2004-x86_64-boot.iso"
+    dest="~/CentOS-8.2.2004-x86_64-boot.iso"
+    mode=777
+  when: "'centos8' in vmtemplate"
 
 - name: create vm
   command: sudo virt-install -n {{vmname}}
            --ram 2048
            --vcpus 2
-           --location /root/ubuntu-16.04.3-server-amd64.iso
+           --location /root/ubuntu-18.04.5-live-server-amd64.iso
            --os-type linux
-           --os-variant ubuntu16.04
+           --os-variant ubuntu18.04
            --network network=default
            --graphics vnc
            --hvm
            --virt-type kvm
            --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
            --noautoconsole
-  when: "'ubuntu16' in vmtemplate"
+  when: "'ubuntu18' in vmtemplate"
 
 - name: create vm
   command: virt-install -n {{vmname}}
            --ram 2048
            --vcpus 2
-           --location /root/ubuntu-14.04.5-server-amd64.iso
+           --location /root/ubuntu-20.04.5-live-server-amd64.iso
            --os-type linux
-           --os-variant ubuntu14.04
+           --os-variant ubuntu20.04
            --network network=default
            --graphics vnc
            --hvm
            --virt-type kvm
            --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
            --noautoconsole
-  when: "'ubuntu14' in vmtemplate"
+  when: "'ubuntu20' in vmtemplate"
+
+- name: create vm
+  command: virt-install -n {{vmname}}
+           --ram 4096
+           --vcpus 2
+           --location /root/CentOS-8.2.2004-x86_64-boot.iso
+           --os-type linux
+           --os-variant rhel7
+           --network network=default
+           --graphics vnc
+           --hvm
+           --virt-type kvm
+           --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
+           --noautoconsole
+  when: "'centos8' in vmtemplate"
 
 - name: create vm
   command: virt-install -n {{vmname}}

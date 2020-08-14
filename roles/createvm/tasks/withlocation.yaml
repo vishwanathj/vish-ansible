@@ -15,16 +15,31 @@
   command: virt-install -n {{vmname}}
            --ram 2048
            --vcpus 2
-           --location http://us.archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/
+           --location http://us.archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/
            --os-type linux
-           --os-variant ubuntu16.04
+           --os-variant ubuntu18.04
            --network network=default
            --graphics vnc
            --hvm
            --virt-type kvm
            --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
            --noautoconsole
-  when: "'ubuntu16' in vmtemplate"
+  when: "'ubuntu18' in vmtemplate"
+
+- name: create vm
+  command: virt-install -n {{vmname}}
+           --ram 2048
+           --vcpus 2
+           --location http://us.archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/
+           --os-type linux
+           --os-variant ubuntu18.04
+           --network network=default
+           --graphics vnc
+           --hvm
+           --virt-type kvm
+           --disk size=40,path=/var/lib/libvirt/images/{{vmname}}.img
+           --noautoconsole
+  when: "'ubuntu20' in vmtemplate"
 
 - name: create vm
   command: virt-install -n {{vmname}}
