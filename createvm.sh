@@ -9,7 +9,7 @@ read HOST
 echo "enter ssh username:"
 read USER
 
-echo "enter VM Template name (only centos7, ubuntu16 and ubuntu14 are supported ):"
+echo "enter VM Template name (only centos8, ubuntu18 and ubuntu20 are supported ):"
 read VMTEMPLATE
 
 echo "enter VM name to be created:"
