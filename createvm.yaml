@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: yes
+  #sudo: yes
   gather_facts: False
   pre_tasks:
     - name: replace #user = "root" in qemu.conf file with user = "root"
